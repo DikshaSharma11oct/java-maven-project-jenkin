@@ -1,0 +1,38 @@
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="ehcache.xsd"
+    updateCheck="true" 
+    monitoring="autodetect"
+    dynamicConfig="true">
+
+<!-- <diskStore path="java.io.tmpdir"/>     -->
+<!--user .dir means to create in memory in application-->
+<diskStore path="user.dir"/> 
+
+  <cache name="contactUs"
+     maxEntriesLocalHeap="5"
+     maxEntriesLocalDisk="10"
+     eternal="false"
+     diskSpoolBufferSizeMB="20"
+     timeToIdleSeconds="3000"
+     timeToLiveSeconds="6000"
+     memoryStoreEvictionPolicy="LFU" 
+     transactionalMode="off">
+     <persistence strategy="localTempSwap"/>
+  </cache>
+</ehcache>
+
+ <!---by default LRU
+ To remove this Exception that means your data can be stored on local Machine But couldn't place there 
+ So use SErilizable with Enity
+ 2023-09-16 19:30:05.611 ERROR 4368 - [tact%0055s.data] n.s.e.store.disk.DiskStorageFactory : Disk Write of 2 failed: 
+java.io.NotSerializableException: com.contactUs.model.response.ContactUsResponseObject
+ 
+
+ localTempSwap strategy means - When you will restart application it will create  a new cache memory in in memory db
+ other strategy can also be used check it from here  persistenceConfiguration
+
+ Only two steps needed for ehCache 
+ 1.Config File 
+ 2.and Xml File
+ 
+ -->
